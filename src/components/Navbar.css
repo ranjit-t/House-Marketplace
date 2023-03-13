@@ -8,8 +8,10 @@ body {
   margin-right: auto;
   justify-content: space-around;
   position: fixed;
-  bottom: 5px;
+  bottom: 0px;
   padding-top: 15px;
+  padding-bottom: 15px;
+
   box-shadow: 1px 1px 4px grey;
 }
 a:link {
