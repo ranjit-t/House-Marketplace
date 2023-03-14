@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -11,43 +11,75 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Logo from "./assets/house-market-log.png";
 import { useNavigate } from "react-router-dom";
+import { auth } from "./firebaseconfig/config";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 function App() {
   const navigate = useNavigate();
+  const [user, setUser] = useState("");
+
+  // console.log(user);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser("");
+      }
+    });
+  }, [user]);
 
   return (
     <div className="App">
       <h1 className="App-heading">
         <img src={Logo} alt="Logo" className="App-logo" />
-        <div className="heading-nav">
-          <span
-            onClick={() => {
-              navigate("/sign-in");
-            }}
-          >
-            Log In
-          </span>
-          <span
-            onClick={() => {
-              navigate("/sign-up");
-            }}
-          >
-            Sign Up
-          </span>
-        </div>
+        {!user ? (
+          <div className="heading-nav">
+            <span
+              onClick={() => {
+                navigate("/sign-in");
+              }}
+            >
+              Sign In
+            </span>
+            <span
+              onClick={() => {
+                navigate("/sign-up");
+              }}
+            >
+              Sign Up
+            </span>
+          </div>
+        ) : (
+          <div className="heading-nav">
+            <span
+              onClick={() => {
+                signOut(auth);
+                alert("signed out");
+                navigate("/sign-in");
+              }}
+            >
+              Sign Out
+            </span>
+          </div>
+        )}
       </h1>
       <Routes>
         <Route path="/" element={<Explore></Explore>}></Route>
         <Route path="/offers" element={<Offers></Offers>}></Route>
-        <Route path="/profile" element={<Profile></Profile>}></Route>
-        <Route path="/sign-in" element={<Signin></Signin>}></Route>
-        <Route path="/sign-up" element={<Signup></Signup>}></Route>
+        <Route
+          path="/profile"
+          element={<Profile user={user}></Profile>}
+        ></Route>
+        <Route path="/sign-in" element={<Signin user={user}></Signin>}></Route>
+        <Route path="/sign-up" element={<Signup user={user}></Signup>}></Route>
         <Route
           path="/forgot-password"
           element={<ForgotPassword></ForgotPassword>}
         ></Route>
       </Routes>
-      <Navbar />
+      <Navbar user={user} />
     </div>
   );
 }

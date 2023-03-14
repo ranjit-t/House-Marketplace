@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebaseconfig/config";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 
-export default function Signin() {
+export default function Signin({ user }) {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [Email, setEmail] = useState("");
@@ -22,76 +22,81 @@ export default function Signin() {
     <div className="all-parent">
       <h1>Welcome Back!</h1>
       <div className="page-container">
-        <div className="input-container">
-          <img src={MailPng} alt="Mail icon" className="input-icons" />
-          <input
-            type="email"
-            placeholder="Email"
-            className="input-box"
-            value={Email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <img
-            src={PasswordPng}
-            alt="Password icon"
-            className="input-icons"
-            required
-          />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            className="input-box"
-            value={Password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <img
-            src={ShowPasswordPng}
-            alt="Show Password icon"
-            className="showpassword"
-            style={{ visibility: `${showPassword ? "hidden" : "visible"}` }}
-            onClick={() => {
-              setShowPassword((prev) => !prev);
-            }}
-          />
-          <img
-            src={HidePasswordPng}
-            alt="Show Password icon"
-            className="hidepassword"
-            style={{
-              visibility: `${showPassword ? "visible" : "hidden"}`,
-            }}
-            onClick={() => {
-              setShowPassword((prev) => !prev);
-            }}
-          />
-        </div>
-        <div className="forgotpassword-link">
-          <p>Forgot Password ?</p>
-        </div>
-
-        <div
-          className="login"
-          onClick={async () => {
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
             try {
               await signInWithEmailAndPassword(auth, Email, Password);
               alert("Logged In");
+              navigate("/profile");
             } catch (e) {
               alert(e.message);
             }
           }}
         >
-          <img src={LoginPng} alt="Login icon" className="login-icon" />
-          <p>
-            <b>Log In</b>
-          </p>
-        </div>
+          <div className="input-container">
+            <img src={MailPng} alt="Mail icon" className="input-icons" />
+            <input
+              type="email"
+              placeholder="Email"
+              className="input-box"
+              value={Email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <img
+              src={PasswordPng}
+              alt="Password icon"
+              className="input-icons"
+            />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className="input-box"
+              value={Password}
+              required
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <img
+              src={ShowPasswordPng}
+              alt="Show Password icon"
+              className="showpassword"
+              style={{ visibility: `${showPassword ? "hidden" : "visible"}` }}
+              onClick={() => {
+                setShowPassword((prev) => !prev);
+              }}
+            />
+            <img
+              src={HidePasswordPng}
+              alt="Show Password icon"
+              className="hidepassword"
+              style={{
+                visibility: `${showPassword ? "visible" : "hidden"}`,
+              }}
+              onClick={() => {
+                setShowPassword((prev) => !prev);
+              }}
+            />
+          </div>
+          <div className="forgotpassword-link">
+            <p>Forgot Password ?</p>
+          </div>
+
+          <button>
+            <div className="login">
+              <img src={LoginPng} alt="Login icon" className="login-icon" />
+              <p>
+                <b>Log In</b>
+              </p>
+            </div>
+          </button>
+        </form>
         <div className="signup-instead">
           <p>Don't Have An Account Yet ?</p>
           <p
