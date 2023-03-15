@@ -23,7 +23,7 @@ export default function Category() {
         const listingRef = collection(db, "listings");
         const q = query(
           listingRef,
-          where("type", "==", categoryName),
+          where("type", "==", categoryName.toLocaleLowerCase()),
           orderBy("timestamp", "desc"),
           limit(10)
         );
@@ -40,25 +40,23 @@ export default function Category() {
         setListings(listings);
         setLoading(false);
       } catch (e) {
-        console.log(e.message);
+        setLoading(false);
         toast.error("Sorry, Could not fetch listings");
       }
     };
     Fetchlistings();
   }, [categoryName]);
 
-  console.log(Listings);
-
   return (
     <div className="all-parent">
-      <h1>Category</h1>
+      <h1>Appartments for {categoryName}</h1>
       {/* <h2>{categoryName}</h2> */}
       {Loading ? (
         <p>...Loading</p>
       ) : Listings.length > 0 ? (
         <>
           <main>
-            <ul>
+            <ul style={{ marginBottom: "100px" }}>
               {Listings.map((listing) => {
                 return (
                   <li key={listing.id}>
@@ -68,10 +66,11 @@ export default function Category() {
                 );
               })}
             </ul>
+            <>Footer</>
           </main>
         </>
       ) : (
-        <p>No Listing for {categoryName}</p>
+        <p className="no-items">No Listing for {categoryName}</p>
       )}
     </div>
   );

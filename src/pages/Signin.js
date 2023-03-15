@@ -99,7 +99,7 @@ export default function Signin({ user }) {
             <div className="login">
               <img src={LoginPng} alt="Login icon" className="login-icon" />
               <p>
-                <b>Log In</b>
+                <b>Sign In</b>
               </p>
             </div>
           </button>

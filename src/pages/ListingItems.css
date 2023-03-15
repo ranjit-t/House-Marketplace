@@ -1,3 +1,7 @@
+.no-items {
+  margin: 30px 0;
+  font-size: 1.3em;
+}
 .listing-items {
   margin: 20px;
   display: grid;

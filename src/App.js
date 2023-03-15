@@ -17,6 +17,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import CreateListing from "./pages/CreateListing";
 
 function App() {
   const navigate = useNavigate();
@@ -81,6 +82,10 @@ function App() {
         <Route
           path="/profile"
           element={<Profile user={user}></Profile>}
+        ></Route>
+        <Route
+          path="/create-listing"
+          element={<CreateListing></CreateListing>}
         ></Route>
         <Route path="/sign-in" element={<Signin user={user}></Signin>}></Route>
         <Route path="/sign-up" element={<Signup user={user}></Signup>}></Route>
