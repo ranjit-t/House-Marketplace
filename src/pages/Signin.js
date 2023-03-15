@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { auth } from "../firebaseconfig/config";
 import { signInWithEmailAndPassword } from "@firebase/auth";
+import { toast } from "react-toastify";
 
 export default function Signin({ user }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,10 +28,11 @@ export default function Signin({ user }) {
             e.preventDefault();
             try {
               await signInWithEmailAndPassword(auth, Email, Password);
-              alert("Logged In");
-              navigate("/profile");
+
+              toast.success("Welcome Back");
+              navigate("/");
             } catch (e) {
-              alert(e.message);
+              toast.error(e.message.slice(10, 100));
             }
           }}
         >
@@ -84,7 +86,12 @@ export default function Signin({ user }) {
               }}
             />
           </div>
-          <div className="forgotpassword-link">
+          <div
+            className="forgotpassword-link"
+            onClick={() => {
+              navigate("/forgot-password");
+            }}
+          >
             <p>Forgot Password ?</p>
           </div>
 

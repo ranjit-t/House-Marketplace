@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Explore from "./pages/Explore";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
+import Category from "./pages/Category";
 import Profile from "./pages/Profile";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
@@ -13,6 +14,9 @@ import Logo from "./assets/house-market-log.png";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseconfig/config";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function App() {
   const navigate = useNavigate();
@@ -56,7 +60,8 @@ function App() {
             <span
               onClick={() => {
                 signOut(auth);
-                alert("signed out");
+                toast.success("Signed Out, Come Back Soon!");
+
                 navigate("/sign-in");
               }}
             >
@@ -69,6 +74,11 @@ function App() {
         <Route path="/" element={<Explore></Explore>}></Route>
         <Route path="/offers" element={<Offers></Offers>}></Route>
         <Route
+          path="/category/:categoryName"
+          element={<Category></Category>}
+        ></Route>
+
+        <Route
           path="/profile"
           element={<Profile user={user}></Profile>}
         ></Route>
@@ -80,6 +90,12 @@ function App() {
         ></Route>
       </Routes>
       <Navbar user={user} />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        draggable
+        pauseOnHover
+      ></ToastContainer>
     </div>
   );
 }

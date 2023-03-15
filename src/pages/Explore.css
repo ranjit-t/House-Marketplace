@@ -1,0 +1,30 @@
+body,
+html {
+  padding: none;
+  margin: none;
+}
+.explore-categories {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.explore-categories > * > img {
+  max-height: 40vh;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+
+  object-fit: cover;
+}
+.explore-categories > p {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+.categories-heading {
+  text-align: left;
+  margin: 20px;
+  margin-left: 30px;
+}

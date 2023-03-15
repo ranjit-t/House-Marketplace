@@ -14,6 +14,8 @@ import { auth, db } from "../firebaseconfig/config";
 import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
 import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 
+import { toast } from "react-toastify";
+
 export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -47,8 +49,10 @@ export default function Signin() {
               await setDoc(doc(db, "users", userUID), formData);
 
               navigate("/profile");
+
+              toast.success("You are Registered");
             } catch (e) {
-              alert(e.message);
+              toast.error(e.message.slice(10, 100));
             }
           }}
         >
