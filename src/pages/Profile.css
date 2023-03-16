@@ -7,9 +7,21 @@
   margin-left: auto;
   margin-right: auto;
 } */
-.welcome-message {
+.welcome-message,
+.add-new-listing {
   margin-top: 10px;
   font-size: 1.3em;
+}
+.add-new-listing {
+  margin-top: 50px;
+}
+.profile-button {
+  margin-top: 20px;
+  padding: 5px;
+  font-size: 1.1em;
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid black;
 }
 .edit-user-info {
   margin-top: 50px;

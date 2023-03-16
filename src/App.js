@@ -38,7 +38,14 @@ function App() {
   return (
     <div className="App">
       <h1 className="App-heading">
-        <img src={Logo} alt="Logo" className="App-logo" />
+        <img
+          src={Logo}
+          alt="Logo"
+          className="App-logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
         {!user ? (
           <div className="heading-nav">
             <span
@@ -72,6 +79,7 @@ function App() {
         )}
       </h1>
       <Routes>
+        <Route path="*" element={<Explore></Explore>}></Route>
         <Route path="/" element={<Explore></Explore>}></Route>
         <Route path="/offers" element={<Offers></Offers>}></Route>
         <Route
@@ -83,10 +91,12 @@ function App() {
           path="/profile"
           element={<Profile user={user}></Profile>}
         ></Route>
-        <Route
-          path="/create-listing"
-          element={<CreateListing></CreateListing>}
-        ></Route>
+        {user && (
+          <Route
+            path="/create-listing"
+            element={<CreateListing></CreateListing>}
+          ></Route>
+        )}
         <Route path="/sign-in" element={<Signin user={user}></Signin>}></Route>
         <Route path="/sign-up" element={<Signup user={user}></Signup>}></Route>
         <Route

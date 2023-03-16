@@ -1,29 +1,85 @@
 .form-button-active {
   background-color: rgb(26, 191, 26);
   font-size: 1.3em;
-  margin: 0 10px;
   padding: 5px;
   border-radius: 5px;
   border: none;
   color: white;
+  cursor: pointer;
 }
 .form-button {
-  background-color: rgba(247, 237, 225, 0.718);
+  background-color: white;
   font-size: 1.3em;
-  margin: 0 10px;
+
   padding: 5px;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
-.create-listing-parent {
-  width: 100%;
+
+.create-listing-form > * {
+  margin-top: 50px;
+}
+.create-listing-form {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.input-section {
+  max-width: 400px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: auto;
+  align-items: center;
+  justify-content: space-between;
   margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
-.input-listing-title {
-  font-size: 1.2em;
+.input-section > * {
+  padding: 3px;
+  font-size: 25px;
+}
+.images-input {
+  font-size: 15px;
+}
+.input-section > :nth-child(3) {
+  position: absolute;
+  right: 0px;
+}
+.input-section > :nth-child(2) {
+  position: absolute;
+  right: 80px;
+}
+.input-section > .input-listing-title {
+  min-width: 50%;
+  max-width: 60%;
+  flex-grow: 1;
+}
+.little-input-box {
+  max-width: 100px;
+  position: absolute;
+  right: 0px;
+}
+.input-submit-button {
+  background-color: white;
+  margin-bottom: 160px;
+  font-size: 1.3em;
+  border: 1px solid black;
   padding: 5px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+.find-geo-btn-parent {
+  position: relative;
+  max-width: 400px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+.find-geo-btn {
+  /* margin-top: -50px; */
+  position: absolute;
+  top: -45px;
+  right: 0;
+  font-size: 20px;
 }

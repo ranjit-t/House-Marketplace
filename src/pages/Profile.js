@@ -86,20 +86,27 @@ export default function Profile({ user }) {
             Please Sign In to Access Your Profile
           </div>
           <button
-            style={{
-              marginTop: "20px",
-              padding: "5px",
-              fontSize: "1.1em",
-              backgroundColor: "white",
-              cursor: "pointer",
-              border: "1px solid black",
-            }}
+            className="profile-button"
             onClick={(e) => {
               e.preventDefault();
               navigate("/sign-in");
             }}
           >
             Sign In
+          </button>
+        </div>
+      )}
+      {auth.currentUser && (
+        <div className="add-new-listing">
+          <p>Add your house to our listings</p>
+          <button
+            className="profile-button"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/create-listing");
+            }}
+          >
+            Go to Add New Listing
           </button>
         </div>
       )}
