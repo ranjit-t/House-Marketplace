@@ -1,12 +1,3 @@
-/* .all-parent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  margin-left: auto;
-  margin-right: auto;
-} */
 .welcome-message,
 .add-new-listing {
   margin-top: 10px;
@@ -17,11 +8,12 @@
 }
 .profile-button {
   margin-top: 20px;
+  background-color: #1e4e7e;
+  color: white;
+  border: none;
   padding: 5px;
   font-size: 1.1em;
-  background-color: white;
   cursor: pointer;
-  border: 1px solid black;
 }
 .edit-user-info {
   margin-top: 50px;
@@ -45,6 +37,17 @@
 .save-changes {
   font-size: 1.3em;
   cursor: pointer;
-  border: 1px solid black;
+  background-color: #1e4e7e;
+  color: white;
+  border: none;
   padding: 5px;
+}
+
+.profile-button:active,
+.save-changes:active {
+  background-color: #02315e;
+}
+.profile-button:hover,
+.save-changes:hover {
+  background-color: rgb(55, 117, 175);
 }

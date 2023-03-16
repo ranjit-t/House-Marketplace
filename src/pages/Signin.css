@@ -91,6 +91,14 @@ form > button {
   margin-top: 20px;
   padding: 5px;
   font-size: 1.1em;
-  background-color: white;
+  background-color: #1e4e7e;
+  border: none;
+  color: white;
   cursor: pointer;
+}
+.signup-instead > p > button:active {
+  background-color: #02315e;
+}
+.signup-instead > p > button:hover {
+  background-color: rgb(55, 117, 175);
 }

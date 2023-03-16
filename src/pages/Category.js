@@ -50,7 +50,7 @@ export default function Category() {
   return (
     <div className="all-parent">
       <h1>Appartments for {categoryName}</h1>
-      {/* <h2>{categoryName}</h2> */}
+
       {Loading ? (
         <p>...Loading</p>
       ) : Listings.length > 0 ? (
@@ -60,7 +60,6 @@ export default function Category() {
               {Listings.map((listing) => {
                 return (
                   <li key={listing.id}>
-                    {/* <h3>{listing.data.Name}</h3> */}
                     <ListingItems listing={listing.data} id={listing.id} />
                   </li>
                 );

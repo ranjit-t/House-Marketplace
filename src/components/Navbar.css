@@ -11,27 +11,30 @@ body {
   bottom: 0px;
   padding-top: 15px;
   padding-bottom: 15px;
-  background-color: white;
+  background-color: #00457e;
   box-shadow: 1px 1px 4px grey;
+}
+.navbarNav > * {
+  cursor: pointer;
 }
 a:link {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 a:visited {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 a:hover {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 a:active {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 .active {
   font-weight: bolder;
