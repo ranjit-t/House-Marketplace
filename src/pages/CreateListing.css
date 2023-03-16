@@ -37,9 +37,7 @@
   padding: 3px;
   font-size: 20px;
 }
-.images-input {
-  font-size: 15px;
-}
+
 .input-section > :nth-child(3) {
   position: absolute;
   right: 0px;
@@ -52,6 +50,11 @@
   min-width: 50%;
   max-width: 60%;
   flex-grow: 1;
+}
+.images-input {
+  position: absolute;
+  left: 120px;
+  font-size: 20px;
 }
 .little-input-box {
   max-width: 100px;
@@ -80,7 +83,6 @@
 .find-geo-btn-parent {
   position: relative;
   max-width: 400px;
-
   margin-left: auto;
   margin-right: auto;
 }

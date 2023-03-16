@@ -295,17 +295,18 @@ export default function CreateListing() {
           <div className="input-section">
             <p> Images : </p>
             <p> </p>
-
-            <input
-              className="images-input"
-              type="file"
-              name="files"
-              multiple
-              placeholder="Longitude of your listing"
-              id="imgUrls"
-              onChange={onMutate}
-              required
-            />
+            <div className="images-input">
+              {" "}
+              <input
+                type="file"
+                name="files"
+                multiple
+                placeholder="Longitude of your listing"
+                id="imgUrls"
+                onChange={onMutate}
+                required
+              />
+            </div>
           </div>
 
           <div className="input-section">
