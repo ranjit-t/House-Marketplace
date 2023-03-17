@@ -51,7 +51,7 @@ export default function Category() {
       <h1>Offers</h1>
 
       {Loading ? (
-        <p>...Loading</p>
+        <p style={{ marginTop: "100px" }}>...Loading</p>
       ) : Listings.length > 0 ? (
         <>
           <main>
@@ -64,7 +64,7 @@ export default function Category() {
                 );
               })}
             </ul>
-            <>Footer</>
+            <p>-</p>
           </main>
         </>
       ) : (

@@ -49,10 +49,10 @@ export default function Category() {
 
   return (
     <div className="all-parent">
-      <h1>Appartments for {categoryName}</h1>
+      <h2>Appartments for {categoryName}</h2>
 
       {Loading ? (
-        <p>...Loading</p>
+        <p style={{ marginTop: "100px" }}>...Loading</p>
       ) : Listings.length > 0 ? (
         <>
           <main>
@@ -65,8 +65,8 @@ export default function Category() {
                 );
               })}
             </ul>
-            <>Footer</>
           </main>
+          <p>-</p>
         </>
       ) : (
         <p className="no-items">No Listing for {categoryName}</p>

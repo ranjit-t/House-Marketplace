@@ -9,10 +9,11 @@ body {
   justify-content: space-around;
   position: fixed;
   bottom: 0px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   background-color: #00457e;
   box-shadow: 1px 1px 4px grey;
+  font-size: 0.7em;
 }
 .navbarNav > * {
   cursor: pointer;

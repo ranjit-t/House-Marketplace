@@ -29,13 +29,14 @@ body {
   align-items: center;
 }
 .heading-nav > span {
-  margin: 0 10px;
-  font-size: 20px;
+  margin: 0 15px;
+  font-size: 17px;
   cursor: pointer;
 }
 .App-logo {
-  width: 100px;
+  width: 80px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 :root {

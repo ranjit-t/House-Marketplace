@@ -5,7 +5,7 @@
 .listing-items {
   margin: 20px;
   display: grid;
-  grid-template-columns: 30% auto;
+  grid-template-columns: auto auto;
   column-gap: none;
   justify-content: space-around;
   align-items: center;
@@ -22,14 +22,18 @@
 .listing-price {
   color: #1e4e7e;
   font-weight: bold;
+  font-size: 0.9em;
 }
 .listing-items > img {
   max-width: 100%;
   border-radius: 20px;
+  max-height: 200px;
+  min-width: 300px;
+  object-fit: cover;
 }
 .listing-items > div {
   margin: 10px 0;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 .listing-features {
   display: flex;
@@ -44,4 +48,22 @@
 .listing-features > * > img {
   position: relative;
   top: 8px;
+}
+.bath-bed {
+  font-size: 10px;
+}
+.listing-location {
+  font-size: 12px;
+}
+.regular-price {
+  text-decoration: line-through;
+  margin-bottom: 10px;
+}
+@media (max-width: 600px) {
+  .listing-items > img {
+    object-fit: cover;
+    min-width: 150px;
+    min-height: 150px;
+    /* margin-left: 30px; */
+  }
 }

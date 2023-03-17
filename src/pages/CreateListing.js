@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { auth } from "../firebaseconfig/config";
-// import { serverTimestamp } from "firebase/firestore";
+import { auth, db, storage } from "../firebaseconfig/config";
+import { serverTimestamp } from "firebase/firestore";
 import "./CreateListing.css";
 
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function CreateListing() {
   const [address, setAddress] = useState("");
+  const [images, setImages] = useState(null);
+
+  const [dataToSend, setDataToSend] = useState();
+
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [FormData, setFormData] = useState({
-    name: "",
+    Name: "",
     type: "rent",
     userRef: auth.currentUser ? auth.currentUser.uid : "",
     bedrooms: 1,
@@ -20,14 +26,10 @@ export default function CreateListing() {
     regularPrice: "",
     discountedPrice: "",
     location: "",
-    // lat: "",
-    // lng: "",
-    imageUrls: [],
-    // timestamp: serverTimestamp,
   });
 
   const {
-    name,
+    Name,
     type,
     bedrooms,
     bathroom,
@@ -36,21 +38,17 @@ export default function CreateListing() {
     offer,
     regularPrice,
     discountedPrice,
-    // location,
-    // lat,
-    // lng,
   } = FormData;
   useEffect(() => {
-    console.log(FormData);
-    console.log(coordinates);
-  }, [coordinates, FormData]);
+    setDataToSend();
+  }, []);
   useEffect(() => {
-    console.log(FormData);
-  }, [FormData]);
+    console.log(dataToSend);
+  }, [dataToSend]);
 
   const onMutate = (e) => {
     if (e.target.files) {
-      setFormData((prev) => ({ ...prev, imgUrls: [e.target.files] }));
+      setImages(e.target.files);
     } else if (e.target.value === "true") {
       setFormData((prev) => ({ ...prev, [e.target.id]: true }));
     } else if (e.target.value === "false") {
@@ -66,19 +64,146 @@ export default function CreateListing() {
     setAddress(value);
     setCoordinates(latLng);
     setFormData((prev) => ({ ...prev, location: address }));
-    setFormData((prev) => ({ ...prev, lat: coordinates.lat }));
-    setFormData((prev) => ({ ...prev, lng: coordinates.lng }));
   };
 
   const handleKeyDown = (event) => {
     event.preventDefault();
     handleSelect(address);
   };
+
+  // const handleFormSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const uploadingImages = async () => {
+  //     for (let i = 0; i < images.length; i++) {
+  //       const file = images[i];
+  //       const imagesRef = ref(
+  //         storage,
+  //         `${auth.currentUser.uid}+${Name}/${file.name}`
+  //       );
+
+  //       try {
+  //         await uploadBytes(imagesRef, file);
+  //         console.log("image uploaded");
+  //       } catch (e) {
+  //         console.log("error", e.message);
+  //       }
+  //     }
+  //   };
+
+  //   const AllinOneTask = async () => {
+  //     let AllUrls = [];
+  //     const storageRef = ref(storage, `${auth.currentUser.uid}+${Name}/`);
+  //     await listAll(storageRef)
+  //       .then((result) => {
+  //         result.items.forEach((itemRef) => {
+  //           getDownloadURL(itemRef)
+  //             .then((url) => {
+  //               AllUrls.push(url);
+  //             })
+  //             .catch((error) => {
+  //               console.log(error);
+  //             });
+  //         });
+  //       })
+  //       .then(() => {
+  //         setDataToSend({
+  //           ...FormData,
+  //           geolocation: { lat: coordinates.lat, lng: coordinates.lng },
+  //           imgUrls: AllUrls,
+  //           timestamp: serverTimestamp(),
+  //         });
+  //       })
+  //       .then(async () => {
+  //         try {
+  //           await addDoc(collection(db, "listings"), dataToSend);
+  //           console.log(dataToSend, "is sent");
+  //         } catch (e) {
+  //           console.error("Error adding document: ", e);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+
+  //   await uploadingImages();
+  //   await AllinOneTask();
+  // };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    let dataToSend = {};
+
+    const uploadingImages = async () => {
+      for (let i = 0; i < images.length; i++) {
+        const file = images[i];
+        const imagesRef = ref(
+          storage,
+          `${auth.currentUser.uid}+${Name}/${file.name}`
+        );
+
+        try {
+          await uploadBytes(imagesRef, file);
+          console.log("image uploaded");
+        } catch (e) {
+          console.log("error", e.message);
+        }
+      }
+
+      // Set dataToSend once all images have been uploaded
+      const AllUrls = [];
+      const storageRef = ref(storage, `${auth.currentUser.uid}+${Name}/`);
+
+      try {
+        const result = await listAll(storageRef);
+        for (let i = 0; i < result.items.length; i++) {
+          const itemRef = result.items[i];
+          const url = await getDownloadURL(itemRef);
+          AllUrls.push(url);
+        }
+
+        dataToSend = {
+          ...FormData,
+          geolocation: { lat: coordinates.lat, lng: coordinates.lng },
+          imgUrls: AllUrls,
+          timestamp: serverTimestamp(),
+        };
+
+        console.log("dataToSend set:", dataToSend);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const AllinOneTask = async () => {
+      try {
+        await addDoc(collection(db, "listings"), dataToSend);
+        console.log(dataToSend, "is sent");
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    };
+
+    await new Promise((resolve, reject) => {
+      uploadingImages()
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+
+    await AllinOneTask();
+  };
+
   return (
     <div className="all-parent">
-      <h1>Rent/Sell Your House</h1>
+      <h2>Rent/Sell Your House</h2>
       <div className="create-listing-parent">
-        <form className="create-listing-form">
+        <form className="create-listing-form" onSubmit={handleFormSubmit}>
           <div className="input-section">
             <p>Title : </p>
             <p> </p>
@@ -86,8 +211,8 @@ export default function CreateListing() {
               className="input-listing-title"
               type="text"
               placeholder="Title of your listing"
-              id="name"
-              value={name}
+              id="Name"
+              value={Name}
               onChange={onMutate}
               required
             />
@@ -302,9 +427,9 @@ export default function CreateListing() {
                 name="files"
                 multiple
                 placeholder="Longitude of your listing"
-                id="imgUrls"
+                id="images"
                 onChange={onMutate}
-                required
+                // required
               />
             </div>
           </div>
