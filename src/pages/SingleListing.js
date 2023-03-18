@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { db } from "../firebaseconfig/config";
+import { Loader } from "@googlemaps/js-api-loader";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,7 +26,10 @@ export default function SingleListing() {
   //   const [Listings, setListings] = useState([]);
   const [currentListing, setCurrentListing] = useState([]);
   const { listingName } = useParams();
-
+  // For Map
+  const [map, setMap] = useState(null);
+  const mapContainerRef = useRef(null);
+  const google = window.google;
   useEffect(() => {
     const Fetchlistings = async () => {
       try {
@@ -52,6 +56,35 @@ export default function SingleListing() {
     };
     Fetchlistings();
   }, [listingName]);
+
+  useEffect(() => {
+    const loader = new Loader({
+      apiKey: "AIzaSyDvgwIxdIBwD_sQR3DxJthQlQNuGqKG0Eo",
+      version: "weekly",
+    });
+
+    loader.load().then(() => {
+      const map = new google.maps.Map(mapContainerRef.current, {
+        center: {
+          lat: currentListing[0].data.geolocation.lat,
+          lng: currentListing[0].data.geolocation.lng,
+        },
+        zoom: 15,
+      });
+
+      new google.maps.Marker({
+        position: {
+          lat: currentListing[0].data.geolocation.lat,
+          lng: currentListing[0].data.geolocation.lng,
+        },
+        map: map,
+      });
+
+      setMap(map);
+    });
+  }, [currentListing, google.maps.Map, google.maps.Marker]);
+
+  console.log(map);
 
   return (
     <div>
@@ -149,7 +182,9 @@ export default function SingleListing() {
                     </p>
                   </div>
                 )}
-              <div className="map-display"></div>
+              <div className="map-display">
+                <div ref={mapContainerRef} style={{ height: "500px" }}></div>
+              </div>
             </div>
           </div>
           <p>-</p>
