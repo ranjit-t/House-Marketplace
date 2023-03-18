@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import RentImage from "../assets/jpg/rentCategoryImage.jpg";
 import SellImage from "../assets/jpg/sellCategoryImage.jpg";
+import Slideshow from "../swiper/Slideshow";
+
 import "./Explore.css";
 
 export default function Explore() {
@@ -20,6 +23,11 @@ export default function Explore() {
         <p>Places for Rent</p>
         <p>Places for Sale</p>
       </div>
+
+      <h2 className="categories-heading">Featured</h2>
+      <Slideshow></Slideshow>
+      <div style={{ marginBottom: "80px" }}></div>
+      <p>-</p>
     </div>
   );
 }
