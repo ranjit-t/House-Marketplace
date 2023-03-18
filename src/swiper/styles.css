@@ -8,7 +8,7 @@
   text-align: center;
   font-size: 18px;
   background: #fff;
-  height: 430px;
+  height: 510px;
 }
 .slide-div {
   margin-left: auto;
@@ -16,7 +16,7 @@
 }
 .image-slide {
   width: 100%;
-  height: 420px;
+  height: 500px;
   object-fit: cover;
   object-position: center center;
   z-index: 1;
@@ -27,4 +27,13 @@
   padding: 10px;
   background-color: #1e4e7e;
   color: white;
+}
+
+@media (max-width: 600px) {
+  .swiper-slide {
+    height: 310px;
+  }
+  .image-slide {
+    height: 300px;
+  }
 }
