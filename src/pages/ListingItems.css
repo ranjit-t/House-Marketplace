@@ -11,10 +11,10 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-
   padding: 20px;
   position: relative;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.726);
+  cursor: pointer;
 }
 .listing-details > * {
   margin: 20px 0;

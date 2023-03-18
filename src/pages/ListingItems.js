@@ -2,10 +2,20 @@ import React from "react";
 import "./ListingItems.css";
 import BedIcon from "../assets/svg/bedIcon.svg";
 import BathIcon from "../assets/svg/bathtubIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function ListingItems({ listing, id }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="listing-items">
+    <div
+      className="listing-items"
+      onClick={() => {
+        navigate(
+          `/listing/${listing.userRef + listing.Name.replace(/ /g, "")}`
+        );
+      }}
+    >
       <img src={listing.imgUrls[0]} alt={listing.name}></img>
       <div className="listing-details">
         <p style={{ fontSize: "0.9em", fontWeight: "bold" }}>{listing.Name}</p>

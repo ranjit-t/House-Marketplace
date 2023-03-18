@@ -223,7 +223,7 @@ export default function CreateListing() {
               type="button"
               className={type === "rent" ? "form-button-active" : "form-button"}
               id="type"
-              value="rent"
+              value="Rent"
               onClick={onMutate}
             >
               Rent
@@ -232,7 +232,7 @@ export default function CreateListing() {
               type="button"
               className={type === "sale" ? "form-button-active" : "form-button"}
               id="type"
-              value="sale"
+              value="Sale"
               onClick={onMutate}
             >
               Sale

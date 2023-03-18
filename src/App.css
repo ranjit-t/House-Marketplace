@@ -5,11 +5,11 @@
   font-family: "Armata", sans-serif;
 }
 body {
-  -webkit-user-select: none;
+  /* -webkit-user-select: none;
   -webkit-touch-callout: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
   overflow-x: hidden;
 }
 .App {
@@ -21,7 +21,6 @@ body {
   padding: 10px 0px 0px 0;
   box-shadow: 1px 1px 3px grey;
   padding-bottom: 10px;
-  /* background-color: rgba(0, 0, 0, 0.775); */
   background-color: #1e4e7e;
   color: white;
   display: flex;

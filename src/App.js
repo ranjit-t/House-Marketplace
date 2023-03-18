@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import CreateListing from "./pages/CreateListing";
+import SingleListing from "./pages/SingleListing";
 
 function App() {
   const navigate = useNavigate();
@@ -85,6 +86,10 @@ function App() {
         <Route
           path="/category/:categoryName"
           element={<Category></Category>}
+        ></Route>
+        <Route
+          path="/listing/:listingName"
+          element={<SingleListing></SingleListing>}
         ></Route>
 
         <Route
