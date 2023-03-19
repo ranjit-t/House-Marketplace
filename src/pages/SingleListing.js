@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState, useRef } from "react";
-import { db } from "../firebaseconfig/config";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 // Import Swiper React components
@@ -17,13 +16,10 @@ import "swiper/css/autoplay";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-
-import { collection, getDocs } from "@firebase/firestore";
-import { toast } from "react-toastify";
-// import { Toast } from "react-toastify/dist/components";
+import { ListingContext } from "../Contextdata/Contextdata";
 
 export default function SingleListing() {
-  //   const [Listings, setListings] = useState([]);
+  const { listings } = useContext(ListingContext);
   const [currentListing, setCurrentListing] = useState([]);
   const { listingName } = useParams();
   // For Map
@@ -33,16 +29,6 @@ export default function SingleListing() {
   useEffect(() => {
     const Fetchlistings = async () => {
       try {
-        const listingRef = collection(db, "listings");
-        const querySnap = await getDocs(listingRef);
-        let listings = [];
-        querySnap.forEach((doc) => {
-          return listings.push({
-            id: doc.id,
-            data: doc.data(),
-          });
-        });
-        // console.log(listings);
         setCurrentListing(
           listings.filter(
             (listing) =>
@@ -51,15 +37,14 @@ export default function SingleListing() {
           )
         );
       } catch (e) {
-        toast.error("Sorry, Could not fetch listings");
+        // toast.error("Sorry, Could not fetch listings");
       }
     };
     Fetchlistings();
-  }, [listingName]);
+  }, [listingName, listings]);
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: "AIzaSyDvgwIxdIBwD_sQR3DxJthQlQNuGqKG0Eo",
       version: "weekly",
     });
 

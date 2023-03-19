@@ -4,7 +4,7 @@ import BedIcon from "../assets/svg/bedIcon.svg";
 import BathIcon from "../assets/svg/bathtubIcon.svg";
 import { useNavigate } from "react-router-dom";
 
-export default function ListingItems({ listing, id }) {
+export default function ListingItems({ listing }) {
   const navigate = useNavigate();
 
   return (
